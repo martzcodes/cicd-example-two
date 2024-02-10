@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  deployments: write
+  id-token: write
+
+jobs:
+  # test:
+  #   name: test
+  #   uses: martzcodes/cicd-example/.github/workflows/test.yml@main
+  deploy-dev:
+    name: deploy to dev
+    # needs: test
+    uses: martzcodes/cicd-example/.github/workflows/deploy-to-env.yml@main
+    with:
+      deploy_env: dev
+      oidc_role: arn:aws:iam::359317520455:role/GitHubOidcRole
+  # deploy-test:
+  #   name: deploy to test
+  #   needs: deploy-dev
+  #   uses: martzcodes/cicd-example/.github/workflows/deploy-to-env.yml@main
+  #   with:
+  #     deploy_env: test
+  #     oidc_role: arn:aws:iam::359317520455:role/GitHubOidcRole
+  # deploy-prod:
+  #   name: deploy to prod
+  #   needs: deploy-test
+  #   uses: martzcodes/cicd-example/.github/workflows/deploy-to-env.yml@main
+  #   with:
+  #     deploy_env: prod
+  #     oidc_role: arn:aws:iam::359317520455:role/GitHubOidcRole
